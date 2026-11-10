@@ -1,0 +1,12 @@
+# monster template.  name: value   (comments start with #)
+name: Ogre Chieftain
+hp: 60
+damage: 2d6+2
+hit: 70
+evasion: 0
+armor: 1
+stat_mod: 2
+level: 4
+effects: weakened:2:1
+boss: true
+description: A scarred brute in a crown of bones.

@@ -1,0 +1,4 @@
+# rooms table. one row per room / hallway / door found on the map.
+# id | x1xy1 - x2xy2 (pixels on the uploaded map) | marked (discovered by players) | kind (room/hall/door) | description
+# 1234 | 128x245 - 247x510 | true | room | exsample row, ignored
+# real rooms below

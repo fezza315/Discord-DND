@@ -1,0 +1,39 @@
+players and their data will be placed as this is writen
+
+"exsample player/" is how each player should be formatted. real characters are written by the bot to "player <id>/"
+(player 1, player 2, ...). a character is NOT tied to a discord user: "bindings.dt" says who plays which char, so a
+user can have more than one char and chars can be shuffled between users (/bind-char, /unbind-char, /shuffle-chars).
+characters can be moved between campaigns with /export-char and /import-char (a zip of the four files below).
+
+any stats in each of the .dt or .st with * in the [] of them means it is optinal and can be toggled on or off by the dm with a /cmd
+(/edit campaign setting:item_level|item_durability|bag_type|bag_max_slots value:on|off).
+all /cmds dont show to other players or the DM, only the bots response. such as if a player went "/attack [boss name]" the cmd will be hidden
+and the bot will first check if the boss exists, checks its stats, check the item stats and then does the dice roll for if it hits with the item stats
+(likelyhood can be set by the DM per boss (evasion) and per item (hit %)) it then does the damage math if it passed the hit check and only then does the bot reply
+"[char name] tried attacking [boss name] and [hit/missed(if it missed stop here)] with a [dice output]/[max possible roll]\n
+it hit with a [dice output] doing [damage number] out of [total boss health] leaving [boss name] at [boss new health] [kill/not kill]'ing it. it is now [@userID]'s turn"
+and prints the players current stats out of their max like health and status effects
+
+"player data/player [num]/inv.dt"
+will contain the players items with a code for each one for it to pull from on a ref sheet. the ref sheet is placed in the "/tables/items.dt"
+(corrected from "playerdata/player [num]/inv.dt")
+    held/equipped rows:   slot | item id | item level* | item durability*
+    then one line         bag: bag type* | max slots*
+    then bag rows:        slot number | item id | item level* | item durability*
+
+"player [num]/stats.dt"
+will contain their base stats with a + for stats that the player has upgraded to
+    str: 14 + 2     (rolled/created at 14, upgraded by 2 since)   also max_hp, hp (current), level, xp
+
+"player [num]/other.dt"
+will contain other misilanious data like the char name and age. for origin and class also contained there the base details and description will be in. placed in "/tables/other.dt"
+
+"player [num]/buffs⁄debuffs.st"
+this is just kinda self explanitory, effects are located in "/tables/effects.dt"
+    effect id | level | turns left (-1 = permanent)
+(the "⁄" in that file name is the unicode fraction slash, a real "/" can't be used in a file name)
+
+group power:
+"calculate per player power.py" writes each bound character's power to "total group power.st",
+"combine and avg group power.py" adds it up and writes the average to "avg group power.st".
+/spawn monster uses these to tell the DM how a monster compares to the party.

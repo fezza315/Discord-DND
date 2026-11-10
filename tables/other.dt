@@ -1,0 +1,17 @@
+# origins (races) and classes. one per row, first column says which.
+# the "origin:" and "class:" lines in a player's other.dt refer to these ids.
+#
+# race  | id | name | description | stat bonuses
+# class | id | name | description | stat bonuses | base hp | starting items (item ids, comma separated)
+#
+# stat bonuses look like  str:+2,con:+1  (use create race / create class in discord or the terminal to add more)
+race | human | Human | Adaptable and ambitious. | str:+1,dex:+1,con:+1,int:+1,wis:+1,cha:+1
+race | elf | Elf | Graceful, long-lived and sharp-eyed. | dex:+2,int:+1
+race | dwarf | Dwarf | Stout, stubborn and hard to put down. | con:+2,str:+1
+race | halfling | Halfling | Small, lucky and good company. | dex:+2,cha:+1
+race | orc | Orc | Strong and fierce, not known for patience. | str:+2,con:+1,int:-1
+class | fighter | Fighter | Front-line warrior. | str:+2,con:+1 | 12 | iron_sword,leather_armor,wooden_shield,healing_potion
+class | rogue | Rogue | Quick, sneaky and precise. | dex:+2,cha:+1 | 8 | dagger,leather_armor,healing_potion
+class | ranger | Ranger | A hunter at home in the wild. | dex:+2,wis:+1 | 9 | short_bow,leather_armor,healing_potion
+class | cleric | Cleric | A healer with a heavy mace. | wis:+2,con:+1 | 9 | mace,leather_armor,healing_potion,healing_potion
+class | wizard | Wizard | Fragile, clever and dangerous. | int:+2,wis:+1 | 6 | quarterstaff,healing_potion,healing_potion

@@ -1,0 +1,13 @@
+# exsample only - real characters are made by the bot into "player <id>/" folders next to this one
+# stat: [org level] + [diff since org level through lvl ups]
+str: [org level] + [diff since org level through lvl ups]
+dex: [org level] + [diff]
+con: [org level] + [diff]
+int: [org level] + [diff]
+wis: [org level] + [diff]
+cha: [org level] + [diff]
+# max hp is also org + diff, hp is the current value
+max_hp: [org] + [diff]
+hp: [current hp]
+level: [level]
+xp: [xp]

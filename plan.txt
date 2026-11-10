@@ -1,0 +1,27 @@
+PLAN / ARCHITECTURE  (what was built from readme.txt)
+
+main.py            Discord only: slash commands, buttons/modals, role + nickname sync, outbox pump, logging, terminal
+common.py          paths, data-file parsers/writers (.dt .st .pt), dice, state.json, character/bindings IO
+combat.py          attack / use / equip / end-of-turn + effects, no Discord in it
+effects_engine.py  interpreter for tables/effects.dt (when.plr.turn / when.other.plr.turn / when.passive)
+msglog.py          the Dev "logs" embeds (edit history + deleted mark), persisted in message_log.json
+config.py          BOT_TOKEN + GUILD_ID (you fill these in)
+
+player data/   player turn.py (check -> char id + user id / "DM"), create char.py, import char.py, bind char.py,
+               calculate per player power.py, combine and avg group power.py, bindings.dt, *.st, "player <id>/" folders
+DM stuff/      create/ (item race class effect monsters rooms), monsters/ (create + spawn), rooms/ (routing, path.pt,
+               important room.dt, room <id> data.dt), start event.py, annouce event.py, play⁄pause players turns.py,
+               player item stats and effects peek.py
+tables/        items.dt, other.dt (origins + classes), effects.dt, rooms.dt
+
+Flow:  scripts change files + state.json and call say(state, channel, text) -> outbox -> main.py posts it.
+       Every DM-script has cli(argv), so it also runs from the terminal or `python "script.py" ...`.
+       DM commands that change the world are staged (state["pending"]) until /confirm.
+
+Corrections made to the original files:
+  * tables/rooms.dt - the example row was not commented out, it would have counted as a real room
+  * tables/effects.dt - the example effect set output to 0 below 5 and used "=" in a condition; the comment says
+    "5 or below -> 1", so it now does that (the interpreter also accepts a lone "=" as "==")
+  * player data/how to.txt - fixed "playerdata/", documented every file format
+  * exsample player/ - full stat list, inv bag line format
+  * added: bindings.dt, import char.py, bind char.py (the stray to-do file's request), config.py, requirements.txt

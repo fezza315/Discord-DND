@@ -1,0 +1,16 @@
+# monster template.  name: value   (comments start with #)
+# hit       = base % chance this monster hits
+# evasion   = % taken off anyone's chance to hit it  (the DM's "likelihood per monster")
+# stat_mod  = flat bonus to its damage (and +2% hit per point)
+# effects   = id:turns:level,...  put on whoever it hits  (- for none)
+name: Goblin
+hp: 12
+damage: 1d6
+hit: 60
+evasion: 5
+armor: 0
+stat_mod: 0
+level: 1
+effects: -
+boss: false
+description: A snarling little thief with a rusty knife.

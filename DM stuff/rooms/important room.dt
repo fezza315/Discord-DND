@@ -1,0 +1,2 @@
+# room id | type (boss/treasure/safe/...) | note        (set with /edit map important:...)
+# a room listed here as "boss" or "treasure" always starts a full table event when players walk in.

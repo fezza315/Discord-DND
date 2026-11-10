@@ -1,0 +1,13 @@
+# exsample only
+name: [name]
+origin: [origin]
+class: [class]
+nicname: [nicname]
+relationship with other players: {
+    {
+        [player ID] | [level]
+    },
+    {
+        [player ID] | [level]
+    }
+}

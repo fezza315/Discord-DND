@@ -1,0 +1,7 @@
+# exsample only. {x*} = optional, the DM can switch it on/off with /edit campaign. use - for "none"
+# held/equiped slots  (slots: hand offhand head body back feet)
+{hand/back/etc slot ID} | {item ID} | {item level*} | {item durabillity*}
+
+# other bag slots
+bag: {bag type*} | {max slots*}
+{slot number/ ID} | {item ID} | {item level*} | {item durabillity*}

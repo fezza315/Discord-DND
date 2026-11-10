@@ -1,0 +1,103 @@
+DND DISCORD BOT - SETUP
+=======================
+
+A. RUNNING IT
+-------------
+1. Python 3.10 or newer.   pip install -r requirements.txt
+2. Open config.py and paste your BOT_TOKEN and GUILD_ID (server ID). (Or set env vars DISCORD_TOKEN / DISCORD_GUILD_ID.)
+3. python main.py            (python main.py --check  = test the data files without connecting)
+4. Keep it running - it holds the game. Game state is in state.json, the message log in message_log.json.
+   Back those two files up if you care about the session.
+5. The terminal you start it in is the "bot terminal": type  help  /  scripts  /  run "create item" --id axe --name Axe ...
+
+
+B. DISCORD DEVELOPER PORTAL  (discord.com/developers/applications)
+--------------------------------------------------------------------
+New Application -> name it.
+
+BOT tab
+  * Reset Token -> copy it into config.py (never share it; if it leaks, reset it again).
+  * Public Bot ............................. OFF   (only you can invite it)
+  * Requires OAuth2 Code Grant ............. OFF
+  * Privileged Gateway Intents:
+        Presence Intent .................... OFF
+        SERVER MEMBERS INTENT .............. ON    (roles, nicknames, turn roles)
+        MESSAGE CONTENT INTENT ............. ON    (needed for the Dev "logs" channel to record message text)
+    Without those two ON the bot refuses to start and tells you which one is missing.
+
+INSTALLATION tab
+  * Installation Contexts: tick "Guild Install" only (untick "User Install").
+  * Install Link: None   (you'll use the URL below).
+
+OAUTH2 tab -> URL Generator
+  * Scopes: bot  +  applications.commands
+  * Bot Permissions - easiest: Administrator   (private game server, bot creates roles/channels/overwrites)
+    Minimal alternative:  View Channels, Manage Channels, Manage Roles, Manage Nicknames, Send Messages,
+    Embed Links, Attach Files, Read Message History, Use Application Commands.
+  * Integration type: Guild Install. Open the generated URL and add it to your server.
+
+
+C. DISCORD SERVER SETTINGS
+--------------------------
+1. User Settings -> Advanced -> Developer Mode ON. Right-click your server icon -> Copy Server ID -> GUILD_ID.
+2. SERVER SETTINGS -> ROLES: drag the bot's role (named after your app) to the TOP, just under the owner.
+   The bot has to sit above the roles it creates (DM, player, current turn, not current turn) and above anybody whose
+   nickname it renames. Nobody can rename the server owner - the owner's nickname just won't change (harmless).
+3. Server name (top left) -> PRIVACY SETTINGS -> "Allow direct messages from server members" ON.
+   Players get their character creator by DM, and the DM gets character requests by DM.
+4. SERVER SETTINGS -> ROLES -> @everyone:
+     * leave "Use Application Commands" ON (the bot restricts it per channel, e.g. in #play)
+     * turn OFF "Change Nickname" so players can't rename themselves away from their character (the bot resets it anyway)
+     * optional: turn OFF "Create Public/Private Threads" and "Mention @everyone"
+5. Run /first-start (see D). THEN, SERVER SETTINGS -> INTEGRATIONS -> your bot -> Manage -> Commands:
+     * limit these to the "DM" role only (deny @everyone):
+       /start /create /spawn /edit /apply /confirm /discard /room-dsc /pause /resume /announce /monster-attack
+       /peek /chars /export-char /import-char /bind-char /unbind-char /shuffle-chars
+     * limit /first-start to Administrators.
+     The bot also refuses non-DMs by itself, this just hides the commands from everyone else.
+6. Dev section: only admins (and the optional dev_role you pass to /first-start) can see it. To let someone else in,
+   add them to a role that has "View Channel" on the Dev category.
+7. Turn off the server's "Community" features if you don't need them; keep verification level whatever you like.
+
+
+D. FIRST RUN
+------------
+  /first-start dm:@YourDM                (everything else is optional - leave the rest blank and the bot builds it all)
+      creates roles:   DM, player, current turn, not current turn
+      creates:
+        Dm      overview, char-sheets, mapping, event-planning, dm-logs
+        Dev     logs, server-messages                 (private: admins / dev_role)
+        players play, map-view, apply-to-play
+      #play: nobody can chat or run commands except the current-turn role (and the DM).
+      #apply-to-play gets the "Join the session" button. #map-view is read-only.
+      Already have channels/roles? Pass them in the optional options and the bot uses those instead.
+
+  Then (DM):  /create campaign name:...   ->  /create map image:<png>   ->  /apply  ->  /confirm
+              /spawn map  (confirm)  ->  players press Join  ->  /start campaign  (confirm)
+  Everything the DM creates/spawns/edits is STAGED: nothing happens until /confirm.  /apply previews, /discard cancels.
+
+
+E. WHAT GETS LOGGED WHERE
+-------------------------
+  Dm / dm-logs ........ everything players and gameplay: every player command used (who, what, where), every message the
+                        bot posts in #play / #map-view / #char-sheets (attacks, turns, joins, moves, events, deaths).
+  Dev / logs .......... EVERY message in the server (people and bot), one embed per message. If a message is edited the
+                        same embed is edited: it keeps the Original and every Edit n. If it's deleted the embed turns red
+                        with a 🗑️ DELETED mark and keeps the text. (Only messages from after the bot was online have their
+                        original text; older ones show "original not captured".) The log channels themselves are skipped.
+  Dev / server-messages  a copy of everything posted in the DM section (overview, char-sheets, mapping, event-planning),
+                        every DM command, every /confirm result, terminal scripts, errors, role-sync problems, bot start/stop,
+                        members joining/leaving, channels created/deleted.
+  Log pings are suppressed - mentions in logs never notify anyone.
+
+
+F. COMMAND CHEAT SHEET
+----------------------
+  readme phrase "/create -monstor" is written  /create monster   (same for campaign, map, player)
+  /start    campaign
+  /create   campaign | monster | map | item | race | class | effect
+  /spawn    monster | map | player (dead players only -> hostile monster)
+  /edit     campaign | monster | map | player
+  DM:       /apply /confirm /discard  /room-dsc /pause /resume /announce /monster-attack /peek /chars
+            /import-char /export-char /bind-char /unbind-char /shuffle-chars
+  Players:  /create-char /attack /use /equip /move /pass /status /sheet

@@ -1,0 +1,23 @@
+# items table. players' inv.dt files refer to these by id.
+# id | name | type | slot | damage (dice) | hit % | stat | armor | durability | effects | description
+#
+# type:       weapon / armor / consumable / misc
+# slot:       hand offhand head body back feet  (- = can't be equipped)
+# damage:     dice like 1d6+2. for a consumable this is the HP it heals.
+# hit %:      base chance to hit (the DM can change it per item). the target's evasion is taken off it.
+# stat:       which stat modifier adds to hit (x2) and damage: str dex con int wis cha
+# armor:      flat damage absorbed on every hit while equipped
+# durability: uses before it breaks (only if the DM has durability switched on)
+# effects:    id:turns:level, comma separated. weapons put them on the target when they hit, consumables put them on the user.
+rusty_sword | Rusty Sword | weapon | hand | 1d6 | 70 | str | 0 | 20 | - | A battered blade that has seen better days.
+iron_sword | Iron Sword | weapon | hand | 1d8 | 75 | str | 0 | 40 | - | A reliable soldier's sword.
+mace | Mace | weapon | hand | 1d6+1 | 70 | str | 0 | 40 | - | Heavy, blunt and honest.
+dagger | Dagger | weapon | hand | 1d4 | 80 | dex | 0 | 30 | - | Quick and easy to hide.
+poison_dagger | Poison Dagger | weapon | hand | 1d4 | 75 | dex | 0 | 20 | poison:3:1 | The blade is slick with something green.
+short_bow | Short Bow | weapon | hand | 1d6 | 70 | dex | 0 | 30 | - | Light and quick to draw.
+quarterstaff | Quarterstaff | weapon | hand | 1d6 | 70 | str | 0 | 40 | - | A walking stick that doubles as a weapon.
+leather_armor | Leather Armor | armor | body | - | - | - | 1 | 40 | - | Boiled leather. Better than nothing.
+chain_mail | Chain Mail | armor | body | - | - | - | 2 | 60 | - | Heavy rings of steel.
+wooden_shield | Wooden Shield | armor | offhand | - | - | - | 1 | 30 | - | Splintered at the edges.
+healing_potion | Healing Potion | consumable | - | 2d4+2 | - | - | 0 | - | - | Tastes like cherries and regret.
+regen_potion | Potion of Regeneration | consumable | - | - | - | - | 0 | - | regeneration:3:1 | Slowly knits wounds shut.

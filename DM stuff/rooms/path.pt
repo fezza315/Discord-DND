@@ -1,0 +1,3 @@
+# from | to    (rooms / halls / doors that touch - movement is allowed both ways)
+# written by "create rooms.py" when a map is imported. one line per connection, e.g.
+# 1 | 6

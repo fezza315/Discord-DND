@@ -1,0 +1,10 @@
+# room 1 data (room 1 is always the spawn room). everything is optional. (lines starting with # are comments)
+# event:    text announced to the whole table the moment someone walks in (starts a full table event)
+# monsters: monster template names, comma separated (monster1, boss1) - spawned the first time the room is entered
+# loot:     item ids the DM plans to hand out in this room
+# notes:    DM notes
+event: 
+monsters: 
+loot: 
+notes: 
+spawned: false

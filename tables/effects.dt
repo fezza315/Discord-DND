@@ -1,0 +1,43 @@
+# effects table. a buff/debuff on a player or monster is just an effect id + level + turns left
+# (see "player data/exsample player/buffs⁄debuffs.st").
+#
+# hooks:   when.plr.turn        end of the holder's own turn
+#          when.other.plr.turn  end of anybody else's turn
+#          when.passive         whenever damage is worked out  (plr.output.dmg = damage dealt, plr.input.dmg = damage taken)
+# actions: dmg.plr(n)  heal.plr(n)  none      names: plr.hp plr.max_hp level
+#
+# this would make the player take 5 damage at the end of each of their turn and any damage they try and inflict gets a -5 on the output number unless 5 or below, then set to 1
+# (corrected: the original example set the output to 0 below 5 which contradicted this comment)
+exsample effect: {
+    when.plr.turn:
+        dmg.plr(5)
+
+    when.other.plr.turn:
+        none
+
+    when.passive:
+        if plr.output.dmg > 5:
+            plr.output.dmg() = plr.output.dmg() - 5
+        else:
+            plr.output.dmg() = 1
+}
+
+poison: {
+    when.plr.turn:
+        dmg.plr(2 * level)
+}
+
+regeneration: {
+    when.plr.turn:
+        heal.plr(2 * level)
+}
+
+weakened: {
+    when.passive:
+        plr.output.dmg() = max(plr.output.dmg() - 2 * level, 1)
+}
+
+blessed: {
+    when.passive:
+        plr.output.dmg() = plr.output.dmg() + level
+}
